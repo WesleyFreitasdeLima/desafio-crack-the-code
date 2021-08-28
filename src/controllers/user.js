@@ -1,24 +1,25 @@
 import Joi from "joi";
 import modelUser from "../models/user";
+import helperEcrypt from "../helpers/crypto";
 
 async function register({ user, password, passwordConfirm }) {
   const schema = Joi.object({
     user: Joi.string().required(),
     password: Joi.string()
-      .pattern(
-        new RegExp(
-          /"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"/
-        )
+      .regex(
+        /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/
       )
       .required(),
-    passwordConfirm: Joi.ref("password")
+    passwordConfirm: Joi.ref("password"),
   });
 
   const validation = await schema.validate({ user, password, passwordConfirm });
-  if (validation.error)
-    throw new Error("Usuário e/ou senha inválidos!")
+  console.log(validation);
+  if (validation.error) throw new Error("Usuário e/ou senha inválidos!");
 
-  return modelUser.insertUser({ user, password });
+  const encryptedPassword = await helperEcrypt.encrypt(password);
+
+  return modelUser.insertUser({ user, password: encryptedPassword });
 }
 
 export default { register };
