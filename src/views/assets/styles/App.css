@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
 :root {
-  --blue-elo-group: #14222b;
   --white-elo-group: #ffffff;
   --black-elo-group: #212934;
+  --gray-elo-group: #e8e8e8;
+  --blue-elo-group: #14222b;
 }
 
 * {
@@ -11,6 +12,66 @@
 }
 
 body {
-  margin: 0;
-  padding: 0;
+  background-color: var(--gray-elo-group);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  background-color: var(--white-elo-group);
+  border: 3px solid var(--black-elo-group);
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px;
+  padding: 30px;
+}
+
+.input-group {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  color: var(--blue-elo-group);
+}
+
+.input-group label {
+  margin: 5px 5px 5px 20px;
+  font-weight: bold;
+}
+
+.input-group 
+input[type="text"],
+input[type="password"] {
+  border: 2px solid var(--blue-elo-group);
+  border-radius: 4px;
+  margin: 5px;
+  padding: 10px;
+}
+
+.input-group 
+input[type="text"]:focus,
+input[type="password"]:focus {
+  background-color: var(--gray-elo-group);
+  font-weight: bold;
+}
+
+.input-group button {
+  background-color: var(--white-elo-group);
+  border: 2px solid var(--blue-elo-group);
+  border-radius: 4px;
+  height: 50px;
+  margin: 5px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.input-group 
+button:focus,
+button:hover,
+button:active {
+  background-color: var(--gray-elo-group);
 }

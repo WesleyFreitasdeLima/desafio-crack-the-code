@@ -1,0 +1,31 @@
+.header {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.header-logo {
+  background-color: var(--blue-elo-group);
+  min-width: 300px;
+  height: auto;
+  margin: 0;
+  padding: 20px;
+}
+
+.header-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.header-title {
+  min-width: 300px;
+  background-color: var(--white-elo-group);
+  width: 100%;
+}
+
+.header-title h1 {
+  color: var(--black-elo-group);
+  width: 100%;
+  text-align: center;
+}

@@ -1,13 +1,13 @@
 import React from "react";
 
-export default function Layout({ chidren, title }) {
+import Header from "./Header";
+
+export default function Layout({ children, title }) {
   return (
     <React.Fragment>
-      <header>
-        <h1>{title}</h1>
-      </header>
       <main>
-        <h1>Meu conteudo</h1>
+        <Header title={title} />
+        {children}
       </main>
     </React.Fragment>
   );
