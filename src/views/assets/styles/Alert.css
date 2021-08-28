@@ -1,0 +1,19 @@
+.alert-box {
+  background-color: #f44336;
+  padding: 20px;
+}
+
+.alert-close-button {
+  color: var(--white-elo-group);
+  margin-left: 15px;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.alert-close-button:hover {
+  color: var(--gray-elo-group);
+}
