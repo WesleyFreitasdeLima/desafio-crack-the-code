@@ -2,7 +2,7 @@ import Joi from "joi";
 import modelUser from "../models/user";
 import helperEcrypt from "../helpers/crypto";
 
-async function register({ user, password, passwordConfirm }) {
+async function register(payload = {}) {
   const schema = Joi.object({
     user: Joi.string().required(),
     password: Joi.string()
@@ -13,15 +13,22 @@ async function register({ user, password, passwordConfirm }) {
     passwordConfirm: Joi.ref("password"),
   });
 
-  const validation = await schema.validate({ user, password, passwordConfirm });
-  if (validation.error) throw new Error("Usuário e/ou senha inválidos!");
+  const validation = schema.validate(payload);
+  if (validation.error) 
+    throw new Error("Usuário e/ou senha inválidos!");
 
-  const userExists = modelUser.findUser(user);
-  if (userExists) throw new Error(`Usuário "${user}" já existe!`);
+  const newUser = validation.value;
 
-  const encryptedPassword = await helperEcrypt.encrypt(password);
+  const userExists = modelUser.findUser(newUser.user);
+  if (userExists) 
+    throw new Error(`Usuário "${newUser.user}" já existe!`);
 
-  return modelUser.insertUser({ user, password: encryptedPassword });
+  const encryptedPassword = await helperEcrypt.encrypt(newUser.password);
+
+  return modelUser.insertUser({
+    user: newUser.user,
+    password: encryptedPassword,
+  });
 }
 
 async function login({ user, password }) {
@@ -34,17 +41,20 @@ async function login({ user, password }) {
       .required(),
   });
 
-  const validation = await schema.validate({ user, password });
-  if (validation.error) throw new Error("Usuário e/ou senha inválidos!");
+  const validation = schema.validate({ user, password });
+  if (validation.error) 
+    throw new Error("Usuário e/ou senha inválidos!");
 
   const userExists = modelUser.findUser(user);
-  if (!userExists) throw new Error(`Usuário "${user}" não existe!`);
+  if (!userExists) 
+    throw new Error(`Usuário "${user}" não existe!`);
 
   const pwdValidation = await helperEcrypt.validate(
     password,
     userExists.password
   );
-  if (!pwdValidation) throw new Error(`Senha inválida!`);
+  if (!pwdValidation) 
+    throw new Error(`Senha inválida!`);
 
   modelUser.insertSession(user);
 
@@ -55,4 +65,6 @@ function logout() {
   return modelUser.removeSession();
 }
 
-export default { register, login, logout };
+const exportedController = { register, login, logout };
+
+export default exportedController;
