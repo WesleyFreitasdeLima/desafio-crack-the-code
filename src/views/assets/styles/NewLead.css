@@ -1,0 +1,22 @@
+.table-opportunities {
+  border-collapse: collapse;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.table-opportunities thead {
+  background-color: var(--dark-gray-elo-group);
+  color: var(--white-elo-group);
+}
+
+.table-opportunities thead th {
+  border: 1px solid black;
+}
+
+.table-opportunities tbody td {
+  border: 1px solid black;
+}
+
+.table-opportunities tbody tr:nth-child(even) {
+  background-color: #dddddd;
+}
