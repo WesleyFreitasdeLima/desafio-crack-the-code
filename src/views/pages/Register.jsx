@@ -4,20 +4,24 @@ import Alert from "../components/Alert";
 import ControllerUser from "../../controllers/user";
 import { Link } from "react-router-dom";
 
-export default function Register() {
-  const [state, setState] = React.useState({
-    user: "",
-    password: "",
-    passwordConfirm: "",
-  });
+const defaultState = {
+  user: "",
+  password: "",
+  passwordConfirm: "",
+};
 
-  const [errorAlert, setErrorAlert] = React.useState({
-    show: false,
-    text: "",
-  });
+const defaultErrorAlert = {
+  show: false,
+  text: "",
+  type: "",
+};
+
+export default function Register() {
+  const [state, setState] = React.useState(defaultState);
+  const [errorAlert, setErrorAlert] = React.useState(defaultErrorAlert);
 
   const handleChange = (event) => {
-    setErrorAlert({ show: false, text: "" });
+    setErrorAlert(defaultErrorAlert);
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
@@ -25,11 +29,18 @@ export default function Register() {
     event.preventDefault();
 
     ControllerUser.register(state)
-      .then(() => alert("Usuário registrado com sucesso!"))
+      .then(() => {
+        setErrorAlert({
+          show: true,
+          text: "Usuário registrado com sucesso!",
+          type: "success",
+        });
+      })
       .catch((err) =>
         setErrorAlert({
           show: true,
           text: err.message,
+          type: "error",
         })
       );
   };
@@ -38,6 +49,7 @@ export default function Register() {
     <React.Fragment>
       <Layout>
         <form onSubmit={(e) => handleSubmit(e)}>
+          <Alert {...errorAlert} />
           <div className="input-group">
             <label htmlFor="user">Usuário *</label>
             <input
@@ -72,7 +84,6 @@ export default function Register() {
             <button type="submit">Registrar</button>
             <Link to="/login">Login</Link>
           </div>
-          {errorAlert ? Alert(errorAlert) : null}
         </form>
       </Layout>
     </React.Fragment>
