@@ -13,8 +13,8 @@ function encrypt(value) {
 function validate(value, hash) {
   return new Promise((resolve, reject) => {
     bcrypt.compare(value, hash, (err, success) => {
-      if (err) return reject(err);
-      if (!success) return reject(success);
+      if (err) 
+        return reject(err);
       return resolve(success);
     });
   });
