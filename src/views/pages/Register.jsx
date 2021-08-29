@@ -1,26 +1,78 @@
 import React from "react";
 import Layout from "../components/Layout";
+import Alert from "../components/Alert";
+import ControllerUser from "../../controllers/user";
+import { Link } from "react-router-dom";
 
 export default function Register() {
+  const [state, setState] = React.useState({
+    user: "",
+    password: "",
+    passwordConfirm: "",
+  });
+
+  const [errorAlert, setErrorAlert] = React.useState({
+    show: false,
+    text: "",
+  });
+
+  const handleChange = (event) => {
+    setErrorAlert({ show: false, text: "" });
+    setState({ ...state, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    ControllerUser.register(state)
+      .then(() => alert("Usuário registrado com sucesso!"))
+      .catch((err) =>
+        setErrorAlert({
+          show: true,
+          text: err.message,
+        })
+      );
+  };
+
   return (
     <React.Fragment>
       <Layout>
-        <form>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div className="input-group">
             <label htmlFor="user">Usuário *</label>
-            <input id="user" name="user" type="text"></input>
+            <input
+              id="user"
+              name="user"
+              type="text"
+              value={state.user}
+              onChange={(e) => handleChange(e)}
+            ></input>
           </div>
           <div className="input-group">
             <label htmlFor="password">Senha *</label>
-            <input id="password" name="password" type="password"></input>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={state.password}
+              onChange={(e) => handleChange(e)}
+            ></input>
           </div>
           <div className="input-group">
             <label htmlFor="passwordConfirm">Confirmar Senha *</label>
-            <input id="passwordConfirm" name="passwordConfirm" type="password"></input>
+            <input
+              id="passwordConfirm"
+              name="passwordConfirm"
+              type="password"
+              value={state.passwordConfirm}
+              onChange={(e) => handleChange(e)}
+            ></input>
           </div>
           <div className="input-group">
             <button type="submit">Registrar</button>
+            <Link to="/login">Login</Link>
           </div>
+          {errorAlert ? Alert(errorAlert) : null}
         </form>
       </Layout>
     </React.Fragment>

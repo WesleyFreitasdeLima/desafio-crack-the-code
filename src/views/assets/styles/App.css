@@ -75,3 +75,7 @@ button:hover,
 button:active {
   background-color: var(--gray-elo-group);
 }
+
+.input-group a {
+  text-align: center;
+}
