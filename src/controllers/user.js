@@ -18,7 +18,7 @@ async function register({ user, password, passwordConfirm }) {
     throw new Error("Usuário e/ou senha inválidos!");
 
   const userExists = modelUser.findUser(user);
-  if (userExists)
+  if (userExists) 
     throw new Error(`Usuário "${user}" já existe!`);
 
   const encryptedPassword = await helperEcrypt.encrypt(password);
@@ -26,4 +26,29 @@ async function register({ user, password, passwordConfirm }) {
   return modelUser.insertUser({ user, password: encryptedPassword });
 }
 
-export default { register };
+async function login({ user, password }) {
+  const schema = Joi.object({
+    user: Joi.string().required(),
+    password: Joi.string()
+      .regex(
+        /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/
+      )
+      .required(),
+  });
+
+  const validation = await schema.validate({ user, password });
+  if (validation.error) 
+    throw new Error("Usuário e/ou senha inválidos!");
+
+  const userExists = modelUser.findUser(user);
+  if (!userExists)
+    throw new Error(`Usuário "${user}" não existe!`);
+
+  const pwdValidation = await helperEcrypt.validate(password, userExists.password);
+  if (!pwdValidation)
+    throw new Error(`Senha inválida!`);
+
+  return true;
+}
+
+export default { register, login };
