@@ -1,0 +1,46 @@
+.leads-panel {
+  width: 100%;
+  margin: 30px;
+}
+
+.leads-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.leads-panel thead {
+  background-color: var(--dark-gray-elo-group);
+  color: var(--white-elo-group);
+}
+
+.leads-panel thead th {
+  padding: 30px;
+  border: 1px solid black;
+}
+
+.leads-panel tbody td {
+  padding: 30px;
+  border: 1px solid black;
+}
+
+.leads-panel tbody tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.company-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.company-options button {
+  border-radius: 300px;
+  border: 1px solid var(--blue-elo-group);
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+  color: green;
+}
