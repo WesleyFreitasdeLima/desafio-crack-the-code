@@ -19,7 +19,7 @@ async function register({ user, password, passwordConfirm }) {
 
   const userExists = modelUser.findUser(user);
   if (userExists)
-    throw new Error(`Usuario "${user}" já existe!`);
+    throw new Error(`Usuário "${user}" já existe!`);
 
   const encryptedPassword = await helperEcrypt.encrypt(password);
 
