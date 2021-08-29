@@ -14,12 +14,10 @@ async function register({ user, password, passwordConfirm }) {
   });
 
   const validation = await schema.validate({ user, password, passwordConfirm });
-  if (validation.error) 
-    throw new Error("Usuário e/ou senha inválidos!");
+  if (validation.error) throw new Error("Usuário e/ou senha inválidos!");
 
   const userExists = modelUser.findUser(user);
-  if (userExists) 
-    throw new Error(`Usuário "${user}" já existe!`);
+  if (userExists) throw new Error(`Usuário "${user}" já existe!`);
 
   const encryptedPassword = await helperEcrypt.encrypt(password);
 
@@ -37,16 +35,18 @@ async function login({ user, password }) {
   });
 
   const validation = await schema.validate({ user, password });
-  if (validation.error) 
-    throw new Error("Usuário e/ou senha inválidos!");
+  if (validation.error) throw new Error("Usuário e/ou senha inválidos!");
 
   const userExists = modelUser.findUser(user);
-  if (!userExists)
-    throw new Error(`Usuário "${user}" não existe!`);
+  if (!userExists) throw new Error(`Usuário "${user}" não existe!`);
 
-  const pwdValidation = await helperEcrypt.validate(password, userExists.password);
-  if (!pwdValidation)
-    throw new Error(`Senha inválida!`);
+  const pwdValidation = await helperEcrypt.validate(
+    password,
+    userExists.password
+  );
+  if (!pwdValidation) throw new Error(`Senha inválida!`);
+
+  modelUser.insertSession(user);
 
   return true;
 }

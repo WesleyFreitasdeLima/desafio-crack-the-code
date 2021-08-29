@@ -30,7 +30,17 @@ function findUser(user) {
   return myUser;
 }
 
+function insertSession(user){
+  return db.insert("session", user);
+}
+
+function removeSession(user){
+  return db.remove("session");
+}
+
 export default {
   insertUser,
   findUser,
+  insertSession,
+  removeSession
 };
