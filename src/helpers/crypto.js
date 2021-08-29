@@ -20,7 +20,9 @@ function validate(value, hash) {
   });
 }
 
-export default {
+const exportedHelper = {
   encrypt,
   validate,
 };
+
+export default exportedHelper;

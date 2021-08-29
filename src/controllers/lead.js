@@ -10,8 +10,7 @@ async function insert(payload = {}) {
     opportunities: Joi.array().min(1).required(),
   });
 
-  const validation = await schema.validate(payload);
-  console.log(validation);
+  const validation = schema.validate(payload);
   if (validation.error) 
     throw new Error("Um ou mais campos inválidos!");
   
@@ -32,6 +31,8 @@ async function updateLeads(leadsList) {
   return modelLead.updateLeadList(leadsList);
 }
 
-export default {
+const exportedController =  {
   insert, findAllLeads, updateLeads
 };
+
+export default exportedController;

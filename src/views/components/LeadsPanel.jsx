@@ -7,27 +7,9 @@ export default function LeadsPanel() {
   const { push } = useHistory();
   const [leads, setLeads] = React.useState([]);
 
-  const Rows = () => {
-    if (!leads)
-      return (
-        <tr key={1}>
-          <td colSpan="3">Nenhum lead cadastrado.</td>
-        </tr>
-      );
-
-    return leads.map((lead, index) => {
-      return (
-        <tr key={index}>
-          <TdCompany lead={lead.status === 1 ? lead : null} />
-          <TdCompany lead={lead.status === 2 ? lead : null} />
-          <TdCompany lead={lead.status === 3 ? lead : null} />
-        </tr>
-      );
-    });
-  };
-
-  const TdCompany = ({ lead }) => {
-    if (!lead) return <td></td>;
+  const TdLead = ({ lead }) => {
+    if (!lead) 
+      return <td>---</td>;
 
     return (
       <td>
@@ -82,7 +64,21 @@ export default function LeadsPanel() {
           </thead>
 
           <tbody>
-            <Rows />
+            {leads ? (
+              leads.map((lead, index) => {
+                return (
+                  <tr key={index}>
+                    <TdLead lead={lead.status === 1 ? lead : null} />
+                    <TdLead lead={lead.status === 2 ? lead : null} />
+                    <TdLead lead={lead.status === 3 ? lead : null} />
+                  </tr>
+                );
+              })
+            ) : (
+              <tr key={1}>
+                <td colSpan="3">Nenhum lead cadastrado.</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

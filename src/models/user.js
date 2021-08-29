@@ -20,10 +20,7 @@ function findUser(user) {
 
   let myUser = null;
   if (users && users.length > 0) {
-    const userFound = users.filter((u) => {
-      console.log(u, user);
-     return u.user === user
-    });
+    const userFound = users.filter((u) => u.user === user);
     myUser = userFound[0];
   }
 
@@ -38,9 +35,11 @@ function removeSession(){
   return db.remove("session");
 }
 
-export default {
+const exportedModel = {
   insertUser,
   findUser,
   insertSession,
   removeSession
 };
+
+export default exportedModel;

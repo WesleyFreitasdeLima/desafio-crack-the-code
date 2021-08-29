@@ -2,7 +2,6 @@ import db from "../services/database";
 
 function insertLead({ status, company, phone, email, opportunities = [] }) {
   const leads = db.select("leads");
-  console.log(leads)
 
   let newLeadsList = [];
   if (leads) 
@@ -34,10 +33,11 @@ function updateLeadList(leadList = []) {
   return db.insert("leads", leadList);
 }
 
-
-export default {
+const exportedModel = {
   insertLead,
   findLeads,
   findLeadByCompany,
   updateLeadList
 };
+
+export default exportedModel;

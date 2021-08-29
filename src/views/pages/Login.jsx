@@ -3,7 +3,6 @@ import Layout from "../components/Layout";
 import Alert from "../components/Alert";
 import ControllerUser from "../../controllers/user";
 import { Link, useHistory } from "react-router-dom";
-
 import { checkSession } from "../../helpers/session";
 
 const defaultState = {
@@ -44,7 +43,8 @@ export default function Login() {
   };
 
   React.useEffect(() => {
-    if (checkSession()) push("/leads");
+    if (checkSession()) 
+      push("/leads");
   });
 
   return (
@@ -52,6 +52,7 @@ export default function Login() {
       <Layout>
         <form onSubmit={(e) => handleSubmit(e)}>
           <Alert {...errorAlert} />
+
           <div className="input-group">
             <label htmlFor="user">Usuário *</label>
             <input
@@ -62,6 +63,7 @@ export default function Login() {
               onChange={(e) => handleChange(e)}
             ></input>
           </div>
+
           <div className="input-group">
             <label htmlFor="password">Senha *</label>
             <input
@@ -72,6 +74,7 @@ export default function Login() {
               onChange={(e) => handleChange(e)}
             ></input>
           </div>
+
           <div className="input-group">
             <button type="submit" className="input-button gray">
               Login

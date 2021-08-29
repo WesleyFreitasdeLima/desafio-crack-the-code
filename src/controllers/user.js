@@ -31,7 +31,7 @@ async function register(payload = {}) {
   });
 }
 
-async function login({ user, password }) {
+async function login(payload = {}) {
   const schema = Joi.object({
     user: Joi.string().required(),
     password: Joi.string()
@@ -41,22 +41,23 @@ async function login({ user, password }) {
       .required(),
   });
 
-  const validation = schema.validate({ user, password });
+  const validation = schema.validate(payload);
   if (validation.error) 
     throw new Error("Usuário e/ou senha inválidos!");
 
-  const userExists = modelUser.findUser(user);
-  if (!userExists) 
-    throw new Error(`Usuário "${user}" não existe!`);
+  const userLogin = validation.value;
+
+  const userExists = modelUser.findUser(userLogin.user);
+  if (!userExists) throw new Error(`Usuário "${userLogin.user}" não existe!`);
 
   const pwdValidation = await helperEcrypt.validate(
-    password,
+    userLogin.password,
     userExists.password
   );
   if (!pwdValidation) 
-    throw new Error(`Senha inválida!`);
+    throw new Error(`Senha incorreta!`);
 
-  modelUser.insertSession(user);
+  modelUser.insertSession(userLogin.user);
 
   return true;
 }
