@@ -50,6 +50,7 @@ export default function Register() {
       <Layout>
         <form onSubmit={(e) => handleSubmit(e)}>
           <Alert {...errorAlert} />
+          
           <div className="input-group">
             <label htmlFor="user">Usuário *</label>
             <input
@@ -60,6 +61,7 @@ export default function Register() {
               onChange={(e) => handleChange(e)}
             ></input>
           </div>
+
           <div className="input-group">
             <label htmlFor="password">Senha *</label>
             <input
@@ -70,6 +72,7 @@ export default function Register() {
               onChange={(e) => handleChange(e)}
             ></input>
           </div>
+
           <div className="input-group">
             <label htmlFor="passwordConfirm">Confirmar Senha *</label>
             <input
@@ -80,6 +83,7 @@ export default function Register() {
               onChange={(e) => handleChange(e)}
             ></input>
           </div>
+
           <div className="input-group">
             <button type="submit" className="input-button gray">Registrar</button>
             <Link to="/"  className="input-link">Login</Link>
