@@ -51,6 +51,8 @@ async function login({ user, password }) {
   return true;
 }
 
+function logout() {
+  return modelUser.removeSession();
+}
 
-
-export default { register, login };
+export default { register, login, logout };

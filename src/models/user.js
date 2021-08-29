@@ -34,7 +34,7 @@ function insertSession(user){
   return db.insert("session", user);
 }
 
-function removeSession(user){
+function removeSession(){
   return db.remove("session");
 }
 
