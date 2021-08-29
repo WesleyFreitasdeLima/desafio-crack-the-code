@@ -1,8 +1,9 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import "../assets/styles/LeadsPanel.css";
 
 export default function LeadsPanel({ leadsList = [] }) {
-    
+  const { push } = useHistory();
   const Rows = () => {
     const rows = leadsList.map((lead, index) => {
       return (
@@ -19,7 +20,7 @@ export default function LeadsPanel({ leadsList = [] }) {
 
   const TdCompany = ({ lead }) => {
     if (!lead) return <td></td>;
-    
+
     return (
       <td>
         <div className="company-options">
@@ -30,10 +31,16 @@ export default function LeadsPanel({ leadsList = [] }) {
     );
   };
 
+  const OpenNewLead = () => {
+    push("/leads/new");
+  };
+
   return (
     <React.Fragment>
       <div className="leads-panel">
-        <button className="button-blue">Novo Lead (+)</button>
+        <button className="input-button blue" onClick={OpenNewLead}>
+          Novo Lead (+)
+        </button>
         <table>
           <thead>
             <tr>

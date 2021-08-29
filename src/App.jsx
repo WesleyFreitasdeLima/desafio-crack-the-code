@@ -6,6 +6,7 @@ import Page404 from "./views/pages/404";
 import Login from "./views/pages/Login";
 import Register from "./views/pages/Register";
 import Leads from "./views/pages/Leads";
+import NewLead from "./views/pages/NewLead";
 
 import { checkSession } from "./helpers/session";
 
@@ -13,7 +14,10 @@ function PrivateRoutes() {
   return (
     <React.Fragment>
       {checkSession() ? (
-        <Leads/>
+        <React.Fragment>
+          <Route exact path="/leads" component={Leads} />
+          <Route exact path="/leads/new" component={NewLead} />
+        </React.Fragment>
       ) : (
         <Redirect to="/" />
       )}
@@ -27,7 +31,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/register" component={Register} />
-        <PrivateRoutes path="/leads" />
+        <PrivateRoutes />
         <Route path="*" component={Page404} />
       </Switch>
     </BrowserRouter>
