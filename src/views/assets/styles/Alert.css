@@ -1,6 +1,13 @@
 .alert-box {
-  background-color: #f44336;
   padding: 20px;
+}
+
+.alert-box.error {
+  background-color: #f44336;
+}
+
+.alert-box.success {
+  background-color: #04aa6d;
 }
 
 .alert-close-button {
