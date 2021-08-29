@@ -1,5 +1,6 @@
 .alert-box {
-  padding: 20px;
+  margin-top: 20px;
+  padding: 10px;
 }
 
 .alert-box.error {
