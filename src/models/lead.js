@@ -30,8 +30,14 @@ function findLeadByCompany(company) {
   return leadByCompany;
 }
 
+function updateLeadList(leadList = []) {
+  return db.insert("leads", leadList);
+}
+
+
 export default {
   insertLead,
   findLeads,
   findLeadByCompany,
+  updateLeadList
 };

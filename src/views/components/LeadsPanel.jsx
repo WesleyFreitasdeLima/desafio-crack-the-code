@@ -1,11 +1,21 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import "../assets/styles/LeadsPanel.css";
+import ControllerLead from "../../controllers/lead";
 
-export default function LeadsPanel({ leadsList = [] }) {
+export default function LeadsPanel() {
   const { push } = useHistory();
+  const [leads, setLeads] = React.useState([]);
+
   const Rows = () => {
-    const rows = leadsList.map((lead, index) => {
+    if (!leads)
+      return (
+        <tr key={1}>
+          <td colSpan="3">Nenhum lead cadastrado.</td>
+        </tr>
+      );
+
+    return leads.map((lead, index) => {
       return (
         <tr key={index}>
           <TdCompany lead={lead.status === 1 ? lead : null} />
@@ -14,8 +24,6 @@ export default function LeadsPanel({ leadsList = [] }) {
         </tr>
       );
     });
-
-    return rows;
   };
 
   const TdCompany = ({ lead }) => {
@@ -25,20 +33,43 @@ export default function LeadsPanel({ leadsList = [] }) {
       <td>
         <div className="company-options">
           {`${lead.company} `}{" "}
-          {lead.status < 3 ? <button>&#10004;</button> : null}
+          {lead.status < 3 ? (
+            <button onClick={() => updateLeadStatus(lead)}>&#10004;</button>
+          ) : null}
         </div>
       </td>
     );
   };
 
-  const OpenNewLead = () => {
+  const goToNewLeads = () => {
     push("/leads/new");
   };
+
+  const loadLeads = () => {
+    ControllerLead.findAllLeads()
+      .then((allLeads) => setLeads(allLeads))
+      .catch(() => setLeads([]));
+  };
+
+  const updateLeadStatus = (currlead) => {
+    const leadsUpdated = leads.map((lead) => {
+      if (lead.company === currlead.company) {
+        lead.status += 1;
+      }
+      return lead;
+    });
+
+    ControllerLead.updateLeads(leadsUpdated).then(() => setLeads(leadsUpdated));
+  };
+
+  React.useEffect(() => {
+    loadLeads();
+  }, []);
 
   return (
     <React.Fragment>
       <div className="leads-panel">
-        <button className="input-button blue" onClick={OpenNewLead}>
+        <button className="input-button blue" onClick={goToNewLeads}>
           Novo Lead (+)
         </button>
         <table>

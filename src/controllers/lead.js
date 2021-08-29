@@ -23,6 +23,15 @@ async function insert(payload = {}) {
   return modelLead.insertLead(lead);
 }
 
+async function findAllLeads() {
+  const leads = modelLead.findLeads();
+  return leads;
+}
+
+async function updateLeads(leadsList) {
+  return modelLead.updateLeadList(leadsList);
+}
+
 export default {
-  insert,
+  insert, findAllLeads, updateLeads
 };
