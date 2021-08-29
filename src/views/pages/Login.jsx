@@ -2,12 +2,11 @@ import React from "react";
 import Layout from "../components/Layout";
 import Alert from "../components/Alert";
 import ControllerUser from "../../controllers/user";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const defaultState = {
   user: "",
   password: "",
-  passwordConfirm: "",
 };
 
 const defaultErrorAlert = {
@@ -19,6 +18,7 @@ const defaultErrorAlert = {
 export default function Register() {
   const [state, setState] = React.useState(defaultState);
   const [errorAlert, setErrorAlert] = React.useState(defaultErrorAlert);
+  const { push } = useHistory();
 
   const handleChange = (event) => {
     setErrorAlert(defaultErrorAlert);
@@ -27,6 +27,18 @@ export default function Register() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    ControllerUser.login(state)
+      .then(() => {
+        push("/leads");
+      })
+      .catch((err) =>
+        setErrorAlert({
+          show: true,
+          text: err.message,
+          type: "error",
+        })
+      );
   };
 
   return (
