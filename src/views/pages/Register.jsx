@@ -81,8 +81,8 @@ export default function Register() {
             ></input>
           </div>
           <div className="input-group">
-            <button type="submit">Registrar</button>
-            <Link to="/">Login</Link>
+            <button type="submit" className="input-button gray">Registrar</button>
+            <Link to="/"  className="input-link">Login</Link>
           </div>
         </form>
       </Layout>
