@@ -82,7 +82,7 @@ export default function Register() {
           </div>
           <div className="input-group">
             <button type="submit">Registrar</button>
-            <Link to="/login">Login</Link>
+            <Link to="/">Login</Link>
           </div>
         </form>
       </Layout>

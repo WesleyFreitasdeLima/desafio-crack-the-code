@@ -4,6 +4,8 @@ import Alert from "../components/Alert";
 import ControllerUser from "../../controllers/user";
 import { Link, useHistory } from "react-router-dom";
 
+import { checkSession } from "../../helpers/session";
+
 const defaultState = {
   user: "",
   password: "",
@@ -15,7 +17,7 @@ const defaultErrorAlert = {
   type: "",
 };
 
-export default function Register() {
+export default function Login() {
   const [state, setState] = React.useState(defaultState);
   const [errorAlert, setErrorAlert] = React.useState(defaultErrorAlert);
   const { push } = useHistory();
@@ -40,6 +42,10 @@ export default function Register() {
         })
       );
   };
+
+  React.useEffect(() => {
+    if (checkSession()) push("/leads");
+  });
 
   return (
     <React.Fragment>

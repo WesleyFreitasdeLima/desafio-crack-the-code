@@ -15,7 +15,7 @@ function PrivateRoutes() {
       {checkSession() ? (
         <Leads/>
       ) : (
-        <Redirect to="/login" />
+        <Redirect to="/" />
       )}
     </React.Fragment>
   );
@@ -25,9 +25,9 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Login} />
         <Route exact path="/register" component={Register} />
-        <PrivateRoutes path="/app" />
+        <PrivateRoutes path="/leads" />
         <Route path="*" component={Page404} />
       </Switch>
     </BrowserRouter>
