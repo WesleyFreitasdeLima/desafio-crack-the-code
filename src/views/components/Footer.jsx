@@ -1,6 +1,5 @@
 import React from "react";
 import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
 import controllerUser from "../../controllers/user";
 
 export default function Footer() {
@@ -13,7 +12,7 @@ export default function Footer() {
 
   return (
     <footer>
-      <button onClick={logout}>Sair</button>
+      <button onClick={logout}>Logout</button>
     </footer>
   );
 }
