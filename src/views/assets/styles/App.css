@@ -4,7 +4,9 @@
   --white-elo-group: #ffffff;
   --black-elo-group: #212934;
   --gray-elo-group: #e8e8e8;
+  --dark-gray-elo-group: #a9a9a9;
   --blue-elo-group: #14222b;
+  --light-blue-elo-group: #007fff;
 }
 
 * {
@@ -23,6 +25,7 @@ main {
   background-color: var(--white-elo-group);
   border: 3px solid var(--black-elo-group);
   min-width: 300px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,4 +81,21 @@ button:active {
 
 .input-group a {
   text-align: center;
+}
+
+.button-blue {
+  width: 260px;
+  height: 50px;
+  background-color: var(--light-blue-elo-group);
+  color: var(--white-elo-group);
+  border: 0px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.button-blue:hover,
+.button-blue:focus,
+.button-blue:active {
+  background-color: #0159b1;
 }
