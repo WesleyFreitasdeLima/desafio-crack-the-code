@@ -14,8 +14,12 @@ async function register({ user, password, passwordConfirm }) {
   });
 
   const validation = await schema.validate({ user, password, passwordConfirm });
-  console.log(validation);
-  if (validation.error) throw new Error("Usuário e/ou senha inválidos!");
+  if (validation.error) 
+    throw new Error("Usuário e/ou senha inválidos!");
+
+  const userExists = modelUser.findUser(user);
+  if (userExists)
+    throw new Error(`Usuario "${user}" já existe!`);
 
   const encryptedPassword = await helperEcrypt.encrypt(password);
 
